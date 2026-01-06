@@ -1,20 +1,28 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial, type Scene } from "three";
+import { BoxGeometry, Mesh, MeshStandardMaterial, RepeatWrapping, TextureLoader, type Scene } from "three";
 
 export class Ground {
     ground: Mesh | null = null
     scene: Scene
     dimensions = { length: 10, breadth: 1000 }
+    texTileSize: number = 0.5
 
     constructor(scene: Scene) {
         this.scene = scene
     }
 
     setup() {
-        const geometry = new BoxGeometry(this.dimensions.length, 1, this.dimensions.breadth)
-        const material = new MeshBasicMaterial({ color: "skyblue" })
+        const loader = new TextureLoader()
+        const texture = loader.load("/textures/kenney_prototype/texture_08.png")
+        texture.wrapS = RepeatWrapping
+        texture.wrapT = RepeatWrapping
+        texture.repeat.set(
+            this.dimensions.length * this.texTileSize,
+            this.dimensions.breadth * this.texTileSize,
+        )
 
+        const geometry = new BoxGeometry(this.dimensions.length, 1, this.dimensions.breadth)
+        const material = new MeshStandardMaterial({ map: texture })
         this.ground = new Mesh(geometry, material)
-        this.ground.position.set(0, -1, 0)
 
         this.scene.add(this.ground)
     }

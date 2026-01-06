@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial, Scene } from "three";
+import { BoxGeometry, Mesh, MeshStandardMaterial, Scene } from "three";
 
 export class Player {
     player: Mesh | null = null
@@ -6,7 +6,7 @@ export class Player {
 
     moveDistance: number = 2
     targetX: number = 0
-    speed: number = 10
+    speed: number = 15
 
     constructor(scene: Scene) {
         this.scene = scene
@@ -14,10 +14,10 @@ export class Player {
 
     setup() {
         const geometry = new BoxGeometry(1, 1, 1)
-        const material = new MeshBasicMaterial({ color: "#ff6969" })
+        const material = new MeshStandardMaterial({ color: "#ff6969" })
 
         this.player = new Mesh(geometry, material)
-        this.player.position.set(0, 0, 0)
+        this.player.position.set(0, 1, 0)
 
         this.scene.add(this.player)
 

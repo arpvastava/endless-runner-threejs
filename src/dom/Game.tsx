@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import { AmbientLight, DirectionalLight, FogExp2, PerspectiveCamera, Scene, WebGLRenderer } from "three"
 import { Player } from "./classes/Player"
 import { Ground } from "./classes/Ground"
 
@@ -54,9 +54,24 @@ export class Game {
         this.renderer.render(this.scene, this.camera)
     }
 
+    private setupEnvironment() {
+        const ambientLight = new AmbientLight("white", 0.5)
+        this.scene.add(ambientLight)
+
+        const dirLight = new DirectionalLight("white", 1)
+        dirLight.position.set(0, 10, 0)
+        this.scene.add(dirLight)
+
+        this.scene.fog = new FogExp2("#111111", 0.03)
+        this.renderer.setClearColor(this.scene.fog.color)
+    }
+
     setup() {
+        // Setup environment
+        this.setupEnvironment()
+
         // Set camera position
-        this.camera.position.set(0, 1, 5)
+        this.camera.position.set(0, 2, 5)
 
         // Create ground
         this.ground = new Ground(this.scene)
@@ -92,6 +107,10 @@ export class Game {
         // Remove game objects
         this.ground?.destroy()
         this.player?.destroy()
+
+        // Remove scene and camera
+        this.scene.clear()
+        this.camera.clear()
 
         // Disable and remove renderer
         this.renderer.dispose()
