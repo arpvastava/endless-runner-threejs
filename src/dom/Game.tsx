@@ -2,8 +2,10 @@ import { AmbientLight, DirectionalLight, FogExp2, PerspectiveCamera, Scene, WebG
 import { Player } from "./classes/Player"
 import { Ground } from "./classes/Ground"
 import { ObstaclesManager } from "./classes/ObstaclesManager"
+import { StateManager } from "../state"
 
 export class Game {
+    private stateManager: StateManager
     private container: HTMLDivElement
     private width: number
     private height: number
@@ -18,6 +20,9 @@ export class Game {
 
     constructor(container: HTMLDivElement) {
         this.container = container
+
+        // Set state manager
+        this.stateManager = StateManager.getInstance()
 
         // Set width and height
         this.width = window.innerWidth
@@ -99,7 +104,11 @@ export class Game {
 
             // Main Loop
             this.ground?.update(delta)
-            this.obstaclesManager?.update(delta)
+
+            if (this.stateManager.getState() === "playing") {
+                this.obstaclesManager?.update(delta)
+            }
+
             this.player?.update(delta)
 
             // Render

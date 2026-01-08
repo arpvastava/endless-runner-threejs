@@ -1,10 +1,14 @@
 import './App.css'
 import { useEffect, useRef } from 'react'
 import { Game } from './dom/Game'
+import { useGameControls, useGameState } from './state'
 
 function App() {
     const gameRef = useRef<Game | null>(null)
     const gameContainerRef = useRef<HTMLDivElement>(null)
+
+    const gameState = useGameState()
+    const { startGame } = useGameControls()
 
     // Create game instance
     useEffect(() => {
@@ -15,6 +19,7 @@ function App() {
 
         return () => {
             game.destroy()
+            gameRef.current = null
         }
 
     }, [])
@@ -31,7 +36,11 @@ function App() {
             />
 
             <div className="ui">
-                <h1 style={{ color: "white" }}>Hello, world!</h1>
+                {gameState === "startMenu" && (
+                    <div className="main-menu">
+                        <button className="action-btn" onClick={startGame}>Start</button>
+                    </div>
+                )}
             </div>
         </>
     )
