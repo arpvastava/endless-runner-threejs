@@ -1,5 +1,5 @@
 import { Box3, BoxGeometry, Mesh, MeshStandardMaterial, Scene, Vector3 } from "three";
-import { AudioManager } from "../Audio/AudioManager";
+import { AudioManager } from "../AssetManagers/AudioManager";
 
 export class Player {
     isActive: boolean = false

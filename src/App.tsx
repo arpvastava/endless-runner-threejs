@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Game } from './dom/Game'
 import { useGameControls, useGameState } from './state'
 import { useGameEvent, useGameHighscore, useGameScore } from './state/useGameState'
-import { AudioManager } from './dom/Audio/AudioManager'
+import { AudioManager } from './dom/AssetManagers/AudioManager'
 
 function App() {
     const gameRef = useRef<Game | null>(null)

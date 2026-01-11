@@ -4,8 +4,8 @@ import { Ground } from "./classes/Ground"
 import { ObstaclesManager } from "./classes/ObstaclesManager"
 import { StateManager } from "../state"
 import type { GameState } from "../state/StateManager"
-import { AudioManager } from "./Audio/AudioManager"
-import { TextureManager } from "./Assets/TextureManager"
+import { AudioManager } from "./AssetManagers/AudioManager"
+import { TextureManager } from "./AssetManagers/TextureManager"
 
 export class Game {
     private stateManager: StateManager

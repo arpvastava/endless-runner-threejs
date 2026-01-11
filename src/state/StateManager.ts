@@ -1,4 +1,4 @@
-import { AudioManager } from "../dom/Audio/AudioManager"
+import { AudioManager } from "../dom/AssetManagers/AudioManager"
 
 export type GameState = "startMenu" | "playing" | "paused" | "resultMenu"
 
