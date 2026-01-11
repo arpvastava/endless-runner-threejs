@@ -4,6 +4,7 @@ import { Game } from './dom/Game'
 import { useGameControls, useGameState } from './state'
 import { useGameEvent, useGameHighscore, useGameScore } from './state/useGameState'
 import { AudioManager } from './dom/AssetManagers/AudioManager'
+import { LuLoader } from 'react-icons/lu'
 
 function App() {
     const gameRef = useRef<Game | null>(null)
@@ -70,6 +71,12 @@ function App() {
             />
 
             <div className="ui">
+                {state === "loading" && (
+                    <div className="loading">
+                        <LuLoader />
+                    </div>
+                )}
+
                 {state === "startMenu" && (
                     <div className="main-menu">
                         <button className="action-btn" onClick={onStartOrRestart}>Start</button>

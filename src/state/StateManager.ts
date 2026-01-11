@@ -1,6 +1,6 @@
 import { AudioManager } from "../dom/AssetManagers/AudioManager"
 
-export type GameState = "startMenu" | "playing" | "paused" | "resultMenu"
+export type GameState = "loading" | "startMenu" | "playing" | "paused" | "resultMenu"
 
 type GameEvents = {
     stateChange: GameState
@@ -12,7 +12,7 @@ type EventListener<T> = (data: T) => void
 
 export class StateManager {
     private static instance: StateManager | null = null
-    private state: GameState = "startMenu"
+    private state: GameState = "loading"
     private score: number = 0
     private highscore: number = 0
     private isBgmStarted: boolean = false

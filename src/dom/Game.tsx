@@ -11,6 +11,7 @@ export class Game {
     private stateManager: StateManager
     private audioManager: AudioManager
     private textureManager: TextureManager
+    private isDestroyed: boolean = false
 
     private container: HTMLDivElement
     private width: number
@@ -90,7 +91,12 @@ export class Game {
 
         // Load assets
         await this.audioManager.setup(this.camera)
+        if (this.isDestroyed) return
+
         await this.textureManager.setup()
+        if (this.isDestroyed) return
+
+        this.stateManager.setState("startMenu")
 
         // Create ground
         this.ground = new Ground(this.scene)
@@ -137,6 +143,8 @@ export class Game {
     }
 
     destroy() {
+        this.isDestroyed = true
+
         // Remove event listeners
         this.stateManager.off("stateChange", this.onStateChange)
         window.removeEventListener("resize", this.handleScreenResize)
