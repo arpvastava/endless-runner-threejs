@@ -12,6 +12,11 @@ export class Player {
     targetX: number = 0
     speed: number = 15
 
+    // For touch devices
+    touchStartX: number = 0
+    touchEndX: number = 0
+    dragMinDistance: number = 25
+
     constructor(scene: Scene) {
         this.scene = scene
     }
@@ -31,6 +36,8 @@ export class Player {
 
         // Add player movement
         window.addEventListener("keydown", this.onKeyPress)
+        window.addEventListener("touchstart", this.handleTouchStart)
+        window.addEventListener("touchend", this.handleTouchEnd)
 
         // Reset values
         this.targetX = 0
@@ -59,6 +66,8 @@ export class Player {
 
         // Remove event listeners
         window.removeEventListener("keydown", this.onKeyPress)
+        window.removeEventListener("touchstart", this.handleTouchStart)
+        window.removeEventListener("touchend", this.handleTouchEnd)
 
         // Clear main reference beforehand
         const p = this.player
@@ -82,10 +91,8 @@ export class Player {
         this.isActive = false
     }
 
-    private onKeyPress = (e: KeyboardEvent) => {
-        const key = e.key
-
-        if (key === "a" || key === "ArrowLeft") {
+    private movePlayer = (dir: "left" | "right") => {
+        if (dir === "left") {
             if (this.targetX === this.moveDistance) {
                 this.targetX = 0
             }
@@ -95,7 +102,7 @@ export class Player {
 
             AudioManager.getInstance().playOneShot("move")
         }
-        else if (key === "d" || key === "ArrowRight") {
+        else if (dir === "right") {
             if (this.targetX === -this.moveDistance) {
                 this.targetX = 0
             }
@@ -104,6 +111,38 @@ export class Player {
             }
 
             AudioManager.getInstance().playOneShot("move")
+        }
+    }
+
+    private onKeyPress = (e: KeyboardEvent) => {
+        const key = e.key
+
+        if (key === "a" || key === "ArrowLeft") {
+            this.movePlayer("left")
+        }
+        else if (key === "d" || key === "ArrowRight") {
+            this.movePlayer("right")
+        }
+    }
+
+    private handleTouchStart = (e: TouchEvent) => {
+        if (e.touches.length <= 0)
+            return
+
+        this.touchStartX = e.touches[0].clientX
+    }
+
+    private handleTouchEnd = (e: TouchEvent) => {
+        if (e.changedTouches.length <= 0)
+            return
+
+        this.touchEndX = e.changedTouches[0].clientX
+
+        // Move player if drag distance is larger than min limit
+        const dragDistance = this.touchEndX - this.touchStartX
+        if (Math.abs(dragDistance) > this.dragMinDistance) {
+            const dir = dragDistance < 0 ? "left" : "right"
+            this.movePlayer(dir)
         }
     }
 }
