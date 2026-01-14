@@ -19,7 +19,8 @@ function App() {
 
     const { startGame, pauseGame, resumeGame } = useGameControls()
 
-    // UI states
+    // UI refs and states
+    const uiRef = useRef<HTMLDivElement>(null)
     const [isNewHighscore, setIsNewHighscore] = useState(false)
 
     // Create game instance
@@ -42,6 +43,26 @@ function App() {
         }
 
     }, [])
+
+    // Update UI size on screen resize (as CSS is failing for some reason)
+    useEffect(() => {
+        const refreshUISize = () => {
+            const width = window.innerWidth
+            const height = window.innerHeight
+
+            const ui = uiRef.current
+            if (ui) {
+                ui.style.width = `${width}px`
+                ui.style.height = `${height}px`
+            }
+        }
+
+        refreshUISize()
+
+        window.addEventListener("resize", refreshUISize)
+
+        return () => window.removeEventListener("resize", refreshUISize)
+    })
 
     // Listen for game events
     useGameEvent(("stateChange"), () => {
@@ -76,7 +97,7 @@ function App() {
                 }}
             />
 
-            <div className="ui">
+            <div ref={uiRef} className="ui">
                 {state === "loading" && (
                     <div className="loading">
                         <LuLoader />
