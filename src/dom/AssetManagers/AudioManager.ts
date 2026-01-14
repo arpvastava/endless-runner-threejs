@@ -4,6 +4,7 @@ const audios = {
     main: "audio/music/Cipher2/Cipher2.mp3",
     click: "audio/effects/kenney-ui/click4.ogg",
     move: "audio/effects/kenney-rpg/handleSmallLeather.ogg",
+    noMove: "audio/effects/kenney-digital/lowRandom.ogg",
     collided: "audio/effects/kenney-digital/pepSound2.ogg"
 }
 

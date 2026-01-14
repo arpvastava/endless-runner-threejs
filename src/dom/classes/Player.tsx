@@ -92,6 +92,8 @@ export class Player {
     }
 
     private movePlayer = (dir: "left" | "right") => {
+        const oldTargetX = this.targetX
+
         if (dir === "left") {
             if (this.targetX === this.moveDistance) {
                 this.targetX = 0
@@ -99,8 +101,6 @@ export class Player {
             else if (this.targetX === 0) {
                 this.targetX = -this.moveDistance
             }
-
-            AudioManager.getInstance().playOneShot("move")
         }
         else if (dir === "right") {
             if (this.targetX === -this.moveDistance) {
@@ -109,8 +109,13 @@ export class Player {
             else if (this.targetX === 0) {
                 this.targetX = this.moveDistance
             }
+        }
 
+        if (oldTargetX !== this.targetX) {
             AudioManager.getInstance().playOneShot("move")
+        }
+        else {
+            AudioManager.getInstance().playOneShot("noMove")
         }
     }
 

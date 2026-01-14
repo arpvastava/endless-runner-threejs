@@ -81,6 +81,11 @@ function App() {
         AudioManager.getInstance().playOneShot("click")
     }
 
+    function onPause() {
+        pauseGame()
+        AudioManager.getInstance().playOneShot("click")
+    }
+
     function onResume() {
         resumeGame()
         AudioManager.getInstance().playOneShot("click")
@@ -114,7 +119,7 @@ function App() {
                 {state === "playing" && (
                     <div className="menu">
                         <p className="score">{scoreDisplay}</p>
-                        <div className="pause-btn" onClick={pauseGame}>
+                        <div className="pause-btn" onClick={onPause}>
                             <PiPause />
                         </div>
                     </div>
