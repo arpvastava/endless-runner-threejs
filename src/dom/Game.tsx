@@ -114,7 +114,7 @@ export class Game {
         this.ground.setup()
 
         // Create player
-        this.player = new Player(this.scene)
+        this.player = new Player(this.scene, this.renderer.domElement)
         this.player.setup()
 
         // Create obstacles manager

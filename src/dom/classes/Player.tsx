@@ -7,6 +7,7 @@ export class Player {
     player: Mesh | null = null
     boundingBox: Box3 | null = null
     scene: Scene
+    canvas: HTMLCanvasElement
 
     moveDistance: number = 2
     targetX: number = 0
@@ -17,8 +18,9 @@ export class Player {
     touchEndX: number = 0
     dragMinDistance: number = 25
 
-    constructor(scene: Scene) {
+    constructor(scene: Scene, canvas: HTMLCanvasElement) {
         this.scene = scene
+        this.canvas = canvas
     }
 
     setup() {
@@ -35,9 +37,9 @@ export class Player {
         this.boundingBox = new Box3().setFromObject(this.player)
 
         // Add player movement
-        window.addEventListener("keydown", this.onKeyPress)
-        window.addEventListener("touchstart", this.handleTouchStart)
-        window.addEventListener("touchend", this.handleTouchEnd)
+        this.canvas.addEventListener("keydown", this.onKeyPress)
+        this.canvas.addEventListener("touchstart", this.handleTouchStart)
+        this.canvas.addEventListener("touchend", this.handleTouchEnd)
 
         // Reset values
         this.targetX = 0
@@ -65,9 +67,9 @@ export class Player {
             return
 
         // Remove event listeners
-        window.removeEventListener("keydown", this.onKeyPress)
-        window.removeEventListener("touchstart", this.handleTouchStart)
-        window.removeEventListener("touchend", this.handleTouchEnd)
+        this.canvas.removeEventListener("keydown", this.onKeyPress)
+        this.canvas.removeEventListener("touchstart", this.handleTouchStart)
+        this.canvas.removeEventListener("touchend", this.handleTouchEnd)
 
         // Clear main reference beforehand
         const p = this.player
