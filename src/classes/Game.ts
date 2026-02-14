@@ -35,6 +35,9 @@ export class Game {
         this.audioManager = AudioManager.getInstance()
         this.textureManager = TextureManager.getInstance()
 
+        // Initialize UI
+        this.ui = new UI()
+
         // Set width and height
         this.width = window.innerWidth
         this.height = window.innerHeight
@@ -97,7 +100,6 @@ export class Game {
 
     async setup() {
         // Setup UI
-        this.ui = new UI()
         this.ui.setup()
 
         // Setup environment
