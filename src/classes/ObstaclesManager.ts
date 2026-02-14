@@ -1,8 +1,8 @@
 import type { Scene } from "three";
 import type { Player } from "./Player";
 import { Obstacle } from "./Obstacle";
-import { StateManager } from "../../state";
-import type { GameState } from "../../state/StateManager";
+import { StateManager } from "../state";
+import type { GameState } from "../state/StateManager";
 
 const INTERVAL = 1 // seconds
 

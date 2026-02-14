@@ -1,5 +1,5 @@
 import { BoxGeometry, Mesh, MeshStandardMaterial, RepeatWrapping, type Scene } from "three";
-import { TextureManager } from "../AssetManagers/TextureManager";
+import { TextureManager } from "../asset-managers/TextureManager";
 
 export class Ground {
     ground: Mesh | null = null

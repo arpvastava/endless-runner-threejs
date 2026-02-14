@@ -1,7 +1,7 @@
 import { Box3, BoxGeometry, Mesh, MeshStandardMaterial, Scene, Vector3 } from "three";
 import type { Player } from "./Player";
-import { StateManager } from "../../state";
-import { AudioManager } from "../AssetManagers/AudioManager";
+import { AudioManager } from "../asset-managers/AudioManager";
+import { StateManager } from "../state";
 
 export class Obstacle {
     obstacle: Mesh | null = null

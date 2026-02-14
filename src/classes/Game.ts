@@ -1,11 +1,11 @@
 import { AmbientLight, DirectionalLight, FogExp2, PerspectiveCamera, Scene, WebGLRenderer } from "three"
-import { Player } from "./classes/Player"
-import { Ground } from "./classes/Ground"
-import { ObstaclesManager } from "./classes/ObstaclesManager"
+import { Player } from "./Player"
+import { Ground } from "./Ground"
+import { ObstaclesManager } from "./ObstaclesManager"
 import { StateManager } from "../state"
 import type { GameState } from "../state/StateManager"
-import { AudioManager } from "./AssetManagers/AudioManager"
-import { TextureManager } from "./AssetManagers/TextureManager"
+import { AudioManager } from "../asset-managers/AudioManager"
+import { TextureManager } from "../asset-managers/TextureManager"
 
 export class Game {
     private stateManager: StateManager
