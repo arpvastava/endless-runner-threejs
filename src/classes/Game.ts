@@ -6,11 +6,13 @@ import { StateManager } from "../state"
 import type { GameState } from "../state/StateManager"
 import { AudioManager } from "../asset-managers/AudioManager"
 import { TextureManager } from "../asset-managers/TextureManager"
+import { UI } from "./UI"
 
 export class Game {
     private stateManager: StateManager
     private audioManager: AudioManager
     private textureManager: TextureManager
+    private ui: UI
     private isDestroyed: boolean = false
 
     private container: HTMLDivElement
@@ -51,7 +53,7 @@ export class Game {
         // Create renderer
         this.renderer = new WebGLRenderer({ antialias: true })
         this.renderer.setSize(this.width, this.height)
-        this.container.appendChild(this.renderer.domElement)
+        this.container.prepend(this.renderer.domElement)
 
         // Listen for events
         window.addEventListener("resize", this.handleScreenResize)
@@ -94,6 +96,10 @@ export class Game {
     }
 
     async setup() {
+        // Setup UI
+        this.ui = new UI()
+        this.ui.setup()
+
         // Setup environment
         this.setupEnvironment()
 
