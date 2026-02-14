@@ -156,6 +156,9 @@ export class Game {
                 }
 
                 this.player?.update(delta)
+
+                // Update UI
+                this.ui.update()
             }
 
             // Render
