@@ -54,25 +54,19 @@ export class UI {
     }
 
     setup() {
-        // Update menus visibility
+        // Update UIs
         this.updateMenusVisibility()
+        this.updateScoresUI()
 
         // Listen for events
         this.stateManager.on("stateChange", this.onStateChange)
+        this.stateManager.on("scoreChange", this.onScoreChange)
         this.stateManager.on("highscoreChange", this.onHighscoreChange)
         window.addEventListener("resize", this.onWindowResize)
         this.startBtn.addEventListener("click", this.onStartOrRestart)
         this.pauseBtn.addEventListener("click", this.onPauseBtnPressed)
         this.resumeBtn.addEventListener("click", this.onResumeBtnPressed)
         this.restartBtn.addEventListener("click", this.onStartOrRestart)
-    }
-
-    update() {
-        const highscore = Math.floor(this.stateManager.getHighscore())
-        this.highscore.textContent = `🏆 ${highscore}`
-
-        const score = Math.floor(this.stateManager.getScore())
-        this.score.textContent = score.toString()
     }
 
     private onWindowResize = () => {
@@ -135,19 +129,34 @@ export class UI {
 
     private onPauseBtnPressed = () => {
         this.stateManager.setState("paused")
+        this.audioManager.playOneShot("click")
     }
 
     private onResumeBtnPressed = () => {
         this.stateManager.setState("playing")
+        this.audioManager.playOneShot("click")
+    }
+
+    private onScoreChange = () => {
+        this.updateScoresUI()
     }
 
     private onHighscoreChange = () => {
         this.isNewHighscore = true
     }
 
+    private updateScoresUI = () => {
+        const score = Math.floor(this.stateManager.getScore())
+        this.score.textContent = score.toString()
+
+        const highscore = Math.floor(this.stateManager.getHighscore())
+        this.highscore.textContent = `🏆 ${highscore}`
+    }
+
     destroy() {
         // Remove event listeners
         this.stateManager.off("stateChange", this.onStateChange)
+        this.stateManager.off("scoreChange", this.onScoreChange)
         this.stateManager.off("highscoreChange", this.onHighscoreChange)
         window.removeEventListener("resize", this.onWindowResize)
         this.startBtn.removeEventListener("click", this.onStartOrRestart)
