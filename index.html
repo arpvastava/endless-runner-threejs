@@ -13,29 +13,32 @@
 <body>
     <div id="root">
         <div id="ui">
+            <!-- Loading Menu -->
             <div class="loading">
-                Loading...
+                <img src="/textures/icons/material_icons_loader.svg" alt="loader" width="86" height="86">
             </div>
 
             <!-- Start Menu -->
-            <div class="menu start-menu">
+            <div class="menu start-menu disabled">
                 <button class="action-btn">Start</button>
                 <p class="highscore">🏆 0</p>
             </div>
 
             <!-- Playing Menu -->
-            <div class="menu playing-menu">
+            <div class="menu playing-menu disabled">
                 <p class="score">0</p>
-                <button class="pause-btn">Pause</button>
+                <button class="pause-btn">
+                    <img src="/textures/icons/material_icons_paused.svg" alt="pause button" width="64" height="64">
+                </button>
             </div>
 
             <!-- Paused Menu -->
-            <div class="menu paused-menu">
+            <div class="menu paused-menu disabled">
                 <button class="action-btn">Resume</button>
             </div>
 
             <!-- Result Menu -->
-            <div class="menu result-menu">
+            <div class="menu result-menu disabled">
                 <button class="action-btn">Restart</button>
                 <p class="score-result">🏆 0</button>
                 <p class="highscore-message">New highscore!</p>
