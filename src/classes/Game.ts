@@ -26,6 +26,7 @@ export class Game {
     private player: Player | null = null
     private ground: Ground | null = null
     private obstaclesManager: ObstaclesManager | null = null
+    private distance: number = 0
 
     constructor(container: HTMLDivElement) {
         this.container = container
@@ -149,10 +150,13 @@ export class Game {
                 if (this.stateManager.getState() === "playing") {
                     this.obstaclesManager?.update(delta)
 
-                    // Update score
-                    this.stateManager.setScore(
-                        this.stateManager.getScore() + (1 * delta)
-                    )
+                    // Update distance and score
+                    this.distance += delta
+
+                    const newScore = Math.floor(this.distance)
+                    if (newScore !== this.stateManager.getScore()) {
+                        this.stateManager.setScore(newScore)
+                    }
                 }
 
                 this.player?.update(delta)
@@ -189,6 +193,7 @@ export class Game {
     private onStateChange = (state: GameState) => {
         if (state === "playing" && this.player && this.player.isActive === false) {
             this.player.setup()
+            this.distance = 0
         }
     }
 

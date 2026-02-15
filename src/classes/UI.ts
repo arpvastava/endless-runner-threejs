@@ -146,7 +146,7 @@ export class UI {
     }
 
     private updateScoresUI = () => {
-        const score = Math.floor(this.stateManager.getScore())
+        const score = this.stateManager.getScore()
         this.score.textContent = score.toString()
 
         const highscore = Math.floor(this.stateManager.getHighscore())
